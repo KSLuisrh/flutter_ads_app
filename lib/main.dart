@@ -3,7 +3,13 @@ import 'package:flutter_ads_app/routes/route.dart';
 import 'package:flutter_ads_app/services/login_service.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+import 'package:firebase_core/firebase_core.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
