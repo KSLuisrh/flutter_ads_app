@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ads_app/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +20,9 @@ class Profile extends StatelessWidget {
   }
 
   _profile(BuildContext context) {
+
+    final authService = Provider.of<AuthService>(context);
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -112,7 +115,7 @@ class Profile extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                print('Logout');
+                authService.logOut();
               },
             ),
           ],

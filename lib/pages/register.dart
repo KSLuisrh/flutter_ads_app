@@ -3,13 +3,11 @@ import 'package:flutter_ads_app/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
 class Register extends StatelessWidget {
-
   final TextEditingController _emailCtrl = TextEditingController();
   final TextEditingController _passwordCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-
     final authService = Provider.of<AuthService>(context);
 
     return Scaffold(
@@ -85,8 +83,17 @@ class Register extends StatelessWidget {
                       height: 20,
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        authService.createUser(_emailCtrl.text, _emailCtrl.text);
+                      onPressed: () async {
+                        final isRegister = await authService.createUser(
+                            _emailCtrl.text, _passwordCtrl.text);
+
+                        if (isRegister != null) {
+                          final snackBar = SnackBar(
+                            content: const Text('User Registered.'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          Navigator.pop(context);
+                        }
                       },
                       child: Text(
                         'Register',
