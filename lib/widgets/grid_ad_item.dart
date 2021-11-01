@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 
 class GridAdItem extends StatelessWidget {
   const GridAdItem(
-      {Key? key,
-      required this.imgUrl,
-      required this.price,
-      required this.productTitle})
+      {Key? key, this.imgUrl, required this.price, required this.productTitle})
       : super(key: key);
-  final String imgUrl;
+  final String? imgUrl;
   final int price;
   final String productTitle;
 
@@ -39,12 +36,18 @@ class GridAdItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 5),
-                        child: Text(
-                          "${this.productTitle}",
-                          style: TextStyle(
-                            color: Colors.white,
+                      Flexible(
+                        child: Container(
+                          width: 180,
+                          margin: EdgeInsets.only(left: 5),
+                          child: Text(
+                            "${this.productTitle}",
+                            style: TextStyle(
+                              color: Colors.white,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            maxLines: 3,
+                            softWrap: false,
                           ),
                         ),
                       ),

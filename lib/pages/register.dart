@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ads_app/services/login_service.dart';
+import 'package:provider/provider.dart';
 
 class Register extends StatelessWidget {
-  const Register({Key? key}) : super(key: key);
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final loginService = Provider.of<LoginService>(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -22,6 +29,7 @@ class Register extends StatelessWidget {
                 child: Column(
                   children: [
                     TextField(
+                      controller: _name,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           filled: true,
@@ -40,6 +48,26 @@ class Register extends StatelessWidget {
                       height: 20,
                     ),
                     TextField(
+                      controller: _phone,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          filled: true,
+                          hintText: 'Phone Number',
+                          hintStyle: TextStyle(color: Colors.black),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 2),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 2),
+                          )),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      controller: _email,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           filled: true,
@@ -58,6 +86,7 @@ class Register extends StatelessWidget {
                       height: 20,
                     ),
                     TextField(
+                      controller: _password,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           filled: true,
@@ -76,7 +105,10 @@ class Register extends StatelessWidget {
                       height: 20,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        loginService.registerUser(_email.text, _password.text,
+                            _phone.text, _name.text);
+                      },
                       child: Text(
                         'Register',
                         style: TextStyle(

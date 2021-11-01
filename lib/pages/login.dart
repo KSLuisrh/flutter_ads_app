@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ads_app/services/login_service.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatelessWidget {
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final loginService = Provider.of<LoginService>(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -20,6 +27,7 @@ class Login extends StatelessWidget {
                 child: Column(
                   children: [
                     TextField(
+                      controller: _email,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           filled: true,
@@ -38,6 +46,7 @@ class Login extends StatelessWidget {
                       height: 20,
                     ),
                     TextField(
+                      controller: _password,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           filled: true,
@@ -56,8 +65,12 @@ class Login extends StatelessWidget {
                       height: 20,
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, 'home');
+                      onPressed: () async {
+                        bool isLogged = await loginService.authUser(
+                            _email.text, _password.text);
+                        if (isLogged) {
+                          Navigator.pushReplacementNamed(context, 'home');
+                        }
                       },
                       child: Text(
                         'Login',
